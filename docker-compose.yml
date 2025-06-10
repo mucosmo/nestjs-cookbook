@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  app:
+    image: nestjs-cookbook
+    container_name: nestjs-cookbook
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+    command: pnpm run start:prod
+    networks:
+      - shared-network
+
+volumes:
+  postgres_data:
+
+networks:
+  shared-network:
+    external: true
