@@ -17,7 +17,7 @@
     "start": "nest start",
     "start:dev": "NODE_ENV=dev nest start --watch",
     "start:debug": "nest start --debug --watch",
-    "start:prod": "pnpm run build && NODE_ENV=prod node dist/src/main",
+    "start:prod": "NODE_ENV=prod node dist/src/main",
     "pm2:start": "pnpm run build && pm2 start ecosystem.config.js",
     "pm2:stop": "pm2 stop ecosystem.config.js",
     "pm2:delete": "pm2 delete ecosystem.config.js",
