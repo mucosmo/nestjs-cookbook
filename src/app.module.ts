@@ -10,6 +10,7 @@ import {
   OnModuleInit,
 } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
+import { MongooseModule } from '@nestjs/mongoose';
 import { MulterModule } from '@nestjs/platform-express';
 import { ScheduleModule } from '@nestjs/schedule';
 import { ThrottlerModule } from '@nestjs/throttler';
@@ -24,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
 import { CaslModule } from './casl/casl.module';
 import { ICacheConfig } from './configs/cache.config';
 import configs from './configs/index.config';
+import { IMongoConfig } from './configs/mongo.config';
 import { MulterConfigService } from './configs/multer.config';
 import { IMysqlConfig } from './configs/mysql.config';
 import { ConfigEnum } from './constants/config.constant';
@@ -47,6 +49,13 @@ import { UtilsModule } from './utils/utils.module';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         ...configService.get<IMysqlConfig>(ConfigEnum.MYSQL),
+      }),
+    }),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => ({
+        ...configService.get<IMongoConfig>(ConfigEnum.MONGO),
       }),
     }),
     CacheModule.registerAsync({
